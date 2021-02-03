@@ -10,7 +10,7 @@ from sklearn.neural_network  import MLPRegressor
 from sklearn.metrics  import mean_squared_error, mean_absolute_error
 from sklearn.model_selection import learning_curve, train_test_split
 
-doc = xlrd.open_workbook('./Eads-yanlan.xlsx').sheet_by_index(0)
+doc = xlrd.open_workbook('./Ea.xlsx').sheet_by_index(0)
 #.sheet_by_index mean get the first sheet by index
 
 #get attribute name(i.e. Ea and H)
@@ -120,34 +120,32 @@ rmse_test_nn = np.empty((K,1))
 mse_test_nn = np.empty((K,1))
 
 # # forward feature selection
-# from mlxtend.feature_selection import SequentialFeatureSelector as SFS
-# from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
-#
-# reg_NN = MLPRegressor(hidden_layer_sizes=(25), alpha=2.5, activation="tanh", solver='lbfgs',
-#                               max_iter=20000, tol=0.000001, shuffle=True, warm_start=True,random_state=20)
-# sfs1 = SFS(reg_NN,
-#            k_features=1,
-#            forward=True,
-#            floating=False,
-#            verbose=2,
-#            scoring='neg_mean_absolute_error',
-#            cv=10)
-#
-# sfs1 = sfs1.fit(X, y)
-#
+from mlxtend.feature_selection import SequentialFeatureSelector as SFS
+from mlxtend.plotting import plot_sequential_feature_selection as plot_sfs
+
+reg_NN = MLPRegressor(hidden_layer_sizes=(25), alpha=2.5, activation="tanh", solver='lbfgs',max_iter=20000, tol=0.000001, shuffle=True, warm_start=True,random_state=20)
+sfs1 = SFS(reg_NN,
+           k_features=1,
+           forward=True,
+           floating=False,
+           verbose=2,
+           scoring='neg_mean_absolute_error',
+           cv=10)
+
+sfs1 = sfs1.fit(X, y)
+
 # #look at the selected feature indices at each step
-# print(sfs1.subsets_)
+print(sfs1.subsets_)
 #
 # # Which features?
-# feat_cols = list(sfs1.k_feature_idx_)
-# print(feat_cols)
+feat_cols = list(sfs1.k_feature_idx_)
+print(feat_cols)
 #
-# fig = plot_sfs(sfs1.get_metric_dict(), kind='std_err')
+fig = plot_sfs(sfs1.get_metric_dict(), kind='std_err')
 #
-# plt.title('Sequential Forward Selection (w. StdDev)')
-# plt.rcParams.update({'font.size': 20})
-# plt.xlabel('Mean Absolute error(eV)')
-# plt.text(7,-1, r'NN-1',{'color':'k','fontsize':18})
+plt.rcParams.update({'font.size': 20})
+plt.xlabel('Mean Absolute error(eV)')
+plt.text(7,-1, r'NN-1',{'color':'k','fontsize':18})
 
 
 # Neural network
