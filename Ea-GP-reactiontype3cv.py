@@ -6,10 +6,7 @@ from scipy import stats
 import sklearn.linear_model as lm
 from sklearn import model_selection
 from sklearn.preprocessing import OneHotEncoder, StandardScaler
-from sklearn import linear_model
 from sklearn.model_selection import GridSearchCV
-from sklearn.svm import LinearSVR, SVR
-from sklearn.neural_network  import MLPRegressor
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF
 from sklearn.gaussian_process.kernels import ConstantKernel as C
@@ -18,7 +15,7 @@ from sklearn.metrics import mean_absolute_error, mean_squared_error
 from sklearn.model_selection import learning_curve, train_test_split
 
 
-doc = xlrd.open_workbook('./Eads-yanlan.xlsx').sheet_by_index(0)
+doc = xlrd.open_workbook('./Ean.xlsx').sheet_by_index(0)
 #.sheet_by_index mean get the first sheet by index
 
 #get attribute name(i.e. Ea and H)
